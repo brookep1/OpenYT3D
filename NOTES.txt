@@ -1,0 +1,11 @@
+
+  Zombie Processes:
+   - You might need to use Task Manager to kill the lingering "StereoPlayer.exe" processes.
+  - Each video you open this method spawns new process
+
+  Library Error Message: 
+    - If you play another video with the lingering process it will complain about library but you can say OK and it should continue
+
+  URL Error Message:   
+   - The format of the media URL from YouTube passed to the video player might be strange. 
+   - RETRY with the same video and it will change to a different URL. Probably will work after retry
