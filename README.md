@@ -1,4 +1,5 @@
 #Open Youtube in 3DVision Stereo Video Player
+https://github.com/brookep1/OpenYT3D
 
 This batch script can be used to play 3D Youtube videos on the standard NVidia 3DVision Player
 
@@ -19,22 +20,13 @@ http://www.nvidia.com/object/3d-vision-main.html
 
 **NVidia 3D Vision Video Player** -- rebranded version of stereoplayer.exe
 As of this scripting V1.7.5 is the latest
-
 Download: http://www.nvidia.com/object/3d-vision-video-player-1.7.5-driver.html
 
 ###3dtv.at Stereoscopic Player -- trial or pay
 http://www.3dtv.at/Products/Player/Index_en.aspx
-
 Download: http://www.3dtv.at/Downloads/Index_en.aspx
 
 ###rg3's Youtube Downloader -- (youtube-dl.exe)
 https://github.com/rg3/youtube-dl
-
 Download Windows .exe: https://yt-dl.org/latest/youtube-dl.exe
- 
-Located on GitHub
-
-https://github.com/brookep1/OpenYT3D.git
-
-Coming Soon
 
