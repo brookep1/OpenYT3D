@@ -1,5 +1,5 @@
-.exe
-.out
+*.exe
+*.out
 
 #################
 ## Eclipse
