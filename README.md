@@ -56,8 +56,9 @@ You can create an alias for the batch file and put it on your desktop or somewhe
 
 **Examples:**
 - YouTube Example (by NVidia): FpSR2xUc-CI or the full url https://www.youtube.com/watch?v=FpSR2xUc-CI
--  VIMEO Example for "other" (by Ganja Clause): https://vimeo.com/groups/168408/videos/116929521
--- Direct ID entry not supported for other sites. Only YouTube IDs
+- VIMEO Example for "other" (by Ganja Clause):  https://vimeo.com/116929521
+- Daily Motion Example (by Hot Animation): http://dai.ly/x2h7385
+*examples used without asking permission first* 
 
 ###Params Options Include:
 - Ability to skip the Notes (off by default)
