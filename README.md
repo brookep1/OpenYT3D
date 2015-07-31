@@ -22,7 +22,7 @@ As of this scripting V1.7.5 is the latest
 
 Download: http://www.nvidia.com/object/3d-vision-video-player-1.7.5-driver.html
 
-**3dtv.at Stereoscopic Player -- trial or pay**
+**3dtv.at Stereoscopic Player -- trial (5 minute max) or pay**
 http://www.3dtv.at/Products/Player/Index_en.aspx
 
 Download: http://www.3dtv.at/Downloads/Index_en.aspx
