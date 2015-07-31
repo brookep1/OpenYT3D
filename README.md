@@ -37,8 +37,6 @@ Download Windows .exe: https://yt-dl.org/latest/youtube-dl.exe
 
 ###Usage:
 
-First Time:
-
 1. *Download youtube-dl.exe* - See above
 2. *Place youtube-dl.exe in the same directory as Openyt3d.bat*
 3. *Check params.ini* - You might need to specify the location of your player if it's not in the default install 
@@ -60,3 +58,15 @@ First Time:
 5. Does it stop after 5 minutes? You have the trial version of 3DTV.AT stereoplayer.exe installed and don't have the NVidia player installed. Either license the 3DTV.AT player or install the free NVidia player. There is no difference between the two in regards to what this script needs and does.
 6. Does it show up in anaglyph? You have your NVidia setting on "discovery" for the 3D stereo setup
 7. Something else? Well it's a batch program. A trivial one at that. Take a look inside for yourself and see if it's an easy fix for you.
+
+###Other Notes:
+
+**To get just the playable media URL you can use youtube-dl.exe thusly** - Like if you want to use BINO as a player.
+
+1. Open a command prompt going to the same directory as youtube-dl.exe. *Tip: Shift-right-click gives the option to open an command prompt in the directory where you clicked in file explorer*
+2. Type: youtube-dl.exe -f best -g some.youtube.URL > url.txt
+3. Open url.txt in notepad. That's the media URL. It will likely only work from the machine that you ran the command from. Sometimes you have to run it again to get a different URL because of the URL encode formatting not being liked by your player.
+
+**Got Oculus or other VR?**
+
+Look for VRPLAYER. It suports YouTube URLS directly via VLC integration.
