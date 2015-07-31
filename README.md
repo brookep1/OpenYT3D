@@ -37,7 +37,7 @@ https://github.com/rg3/youtube-dl
 
 Download Windows .exe: https://yt-dl.org/latest/youtube-dl.exe
 
-**The youtube-dl.exe tool can do more than just YouTube**. Check out it's notes for other sites it can retrieve fun. They have a very long list.
+**The youtube-dl.exe tool can do more than just YouTube**. Refer to the [supported sites list](https://github.com/rg3/youtube-dl/blob/master/docs/supportedsites.md) in their docs.
 
 ###Usage:
 
