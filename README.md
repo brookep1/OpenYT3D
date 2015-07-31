@@ -15,17 +15,14 @@ Also no fancy .NET libraries or similar. Fancy GUI's are old school. Simple text
 
 ##Requires:
 
-###NVidia 3DVision:
-http://www.nvidia.com/object/3d-vision-main.html
-
-###The Stereoscopic Player (stereoplayer.exe)
+###One of the "stereoplayer.exe" variants. NVidia's or 3DTV.AT
 
 **NVidia 3D Vision Video Player** -- rebranded version of stereoplayer.exe
 As of this scripting V1.7.5 is the latest
 
 Download: http://www.nvidia.com/object/3d-vision-video-player-1.7.5-driver.html
 
-###3dtv.at Stereoscopic Player -- trial or pay
+**3dtv.at Stereoscopic Player -- trial or pay**
 http://www.3dtv.at/Products/Player/Index_en.aspx
 
 Download: http://www.3dtv.at/Downloads/Index_en.aspx
