@@ -7,6 +7,7 @@ This helper batch script can be used to play (streaming) half-SBS formated video
 
 - You give it the video URL or ID and streams directly from Youtube, *you don't have to wait to download it first* then play it. 
 - The video does not have to be tagged in Youtube as a 3D video first. It will accept and play any Half SBS video that is posted.
+- Also supports VIMEO and any other streaming media site that is supported by youtube-dl.exe. 
 - No need for an HTML5 browser. No Flash. And no special plugins necessary. It does not use your browser at all. 
 - Also no fancy .NET libraries or similar. Fancy GUI's are old school. Simple text screens are the future.
 
@@ -36,7 +37,7 @@ https://github.com/rg3/youtube-dl
 
 Download Windows .exe: https://yt-dl.org/latest/youtube-dl.exe
 
-**The youtube-dl.exe tool can do more than just YouTube**. Check out it's notes for other sites it can retrieve fun.
+**The youtube-dl.exe tool can do more than just YouTube**. Check out it's notes for other sites it can retrieve fun. They have a very long list.
 
 ###Usage:
 
@@ -78,3 +79,11 @@ You can create an alias for the batch file and put it on your desktop or somewhe
 **Got Oculus or other VR?**
 
 Look for VRPLAYER. It suports YouTube URLS directly via VLC integration.
+
+#COPYRIGHT#
+
+The author(s) has released this software and documentation into the Public Domain. You may use it, modify it, redistribute it, etc for any project and any purpose without restriction. Attribution would be a nice courtesy but not specifically required.
+
+See the copyrights for the pre-requisite components for any restrictions on their usage and distribution.
+
+The user is responsible for adhering to any rules and limitations imposed by the media providers (Youtube, VIMEO, etc) and media creators/owners. 
