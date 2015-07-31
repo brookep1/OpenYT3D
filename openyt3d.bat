@@ -2,39 +2,29 @@
 SETLOCAL ENABLEEXTENSIONS EnableDelayedExpansion
 SET VER=0.1
 
-rem Left Todo
-rem file reorganize - depends for binary depot and temp for created files
-rem command line parameter passing
-rem player specific command line flag parameters
-rem Tasklist and Taskkill
-rem Powershell clipboard output helper
-rem clip2stereoplayer batch shortcut
-rem openyt3d-stereoplayer shorthand
-rem media2clip shorthand
-rem openyt3d-bino shorthand
-rem clip2bino batch shortcut
-rem playlist parser
-
 CLS
 rem ################ You can edit this stuff with the right directories and files ######
 rem It will check params
 rem Then it will check current path and these directories for the PLAYER
+
+rem set some defaults that can be overridden
 SET NVDIR=%ProgramFiles(x86)%\NVIDIA Corporation\NVIDIA 3D Vision Video Player\
 SET PLAYERDIR=%ProgramFiles(x86)%\Stereoscopic Player\
-SET YTDLDIR=%ProgramFiles(x86)%\youtube-dl\
 SET PLAYER=StereoPlayer.exe
+SET PLAYFLAGS=-il:SideBySideLF -ihw -fp -ol:NVIDIA -url:
 SET YTDL=youtube-dl.exe
 
 rem Call the parameter override file if one exists
 IF EXIST params.ini (
 	for /F "eol=; tokens=1-2 delims==" %%G in (params.ini) DO (
 		rem echo %%G %%H
-		IF NOT %%G=="" ( IF NOT %%H=="" (
+		IF NOT "%%G"=="" ( IF NOT "%%H"=="" (
 			SET %%G=%%~H
 		))
 	)
-)	
+)
 
+rem Command line parameter definitions override everything
 IF /I NOT "!NOTES!"=="SKIP" (
 	cls
 	echo HELLO TO YOU! 
@@ -68,7 +58,7 @@ if EXIST !YTDLDIR!!YTDL! (
 echo PROBLEM:  No youtube-dl.exe found
 echo see the README for more information
 pause
-GOTO EOF
+GOTO:EOF
 
 
 :FINDPLAYER
@@ -91,7 +81,7 @@ IF EXIST !PLAYERDIR!!PLAYER! (
 ECHO PROBLEM: No Stereo Player could be found. 
 echo see the README for more information
 pause
-GOTO EOF
+GOTO:EOF
 
 :YOUTUBE
 rem CLS
@@ -120,16 +110,23 @@ IF NOT "%1"=="" (
 	echo.
 	if /I "!INPUT!"=="test" (
 		SET URL=https://www.youtube.com/v/FpSR2xUc-CI
+		SET FMT="-f best"
+		echo "Using test URL"
 		GOTO GET
 	)
 	if /I "!INPUT!"=="other" (
 		SET /P INPUT="Other Video URL -->  " || ECHO "Invalid Entry" && GOTO ASK
 		SET URL=!INPUT!
+		echo "Other URL type"
 		GOTO GET
 	)
 	if /I "!INPUT!"=="dry" (
 		echo Doing a dry run.
-		SET /P INPUT="Other Video URL -->  " || ECHO "Invalid Entry" && GOTO ASK
+		IF /I NOT "!INPUT:~0,4!"=="http" (
+			SET PREFIX=https://www.youtube.com/v/
+			SET URL=!PREFIX!!INPUT!
+		)
+		SET /P INPUT="Video URL -->  " || ECHO "Invalid Entry" && GOTO ASK
 		echo -------- Media URL -------------
 		youtube-dl -g !INPUT!
 		echo -------- Formats ---------------
@@ -139,33 +136,38 @@ IF NOT "%1"=="" (
 		pause
 		GOTO YOUTUBE
 	)
-
 )
 
-IF /I !INPUT:~1-4! == "http" (
-) ELSE (
+IF /I NOT "%INPUT:~0,4%"=="http" (
 	SET PREFIX=https://www.youtube.com/v/
-	SET URL=!PREFIX!!ID!
+	SET URL=!PREFIX!!INPUT!
+) ELSE (
+	SET URL=!INPUT!
 )
 
 rem Don't care just make it go
-IF /I "!FORMAT!"=="AUTO" DO (
+IF /I "!FORMAT!"=="AUTO" (
+	SET FMT=-f best	
 	GOTO GET
 )
 
 rem getting available formats that are not DASH
-youtube-dl -F !URL!  > ytformats.txt || ECHO Does not appear to be a valid youtube URL or ID && GOTO BAD
-FOR %%A IN (ytformats.txt) DO set size=%%~zA
-
+youtube-dl -F !URL! > ytformats.txt || ECHO Does not appear to be a valid youtube URL or ID && GOTO BAD
+FOR /F %%A IN ('find /v "DASH" ytformats.txt ^| find /c /v "]"') DO set LINES=%%A
 rem There are no formats returned. This is probably not a YouTube URL
-IF NOT %%A GTR 1 DO (
-	FMT=""
+echo Number of Formats: %size%
+IF !LINES! LSS 1 (
+	ECHO No Formats Returned.
+	GOTO GET
+IF !LINES! LSS 2 (
+	SET FMT=
 	ECHO There is only one video resolution available for this video
 	GOTO GET 
 )
+)
 
 CLS
-ECHO Video ID: !ID!
+ECHO URL: !URL!
 ECHO. --------------------------------------------------------------
 ECHO ENTER ONE OF THE AVAILABLE FORMAT CODES FROM THE FIRST COLUMN
 ECHO. --------------------------------------------------------------
@@ -175,32 +177,35 @@ TYPE ytformats.txt | find /v "DASH" | find /v "]"
 
 :Pick
 SET /P CHOICE="Type the format code -->  " || ECHO Invalid Entry Try Again && GOTO Pick
-FMT="-f "!CHOICE!
+SET FMT=-f !CHOICE!
 
 rem retrieve the video URL for that format and forward it
 ECHO Retrieving direct URL for the video
 DEL playurl.txt
 
 :GET
-!YTDL!!FMT! -g !URL! > playurl.txt || ECHO. && echo PROBLEM: COULD NOT GET YT VIDEO URL && goto BAD
+!YTDL! !FMT! -g !URL! > playurl.txt || ECHO. && echo PROBLEM: COULD NOT GET YT VIDEO URL && goto BAD
 SET /P VID=<playurl.txt 
 
 :Play
-rem Set flags to automatically go to parallel HalfSBS for input and 3DVision for output
 
-SET FlAGS=-il:SideBySideLF -ihw -fp -ol:NVIDIA
 ECHO.
 ECHO.
 rem Using !PLAYER! to run !VID!
 ECHO Launching Video Player. Enjoy the show!
-START /W /I /B "" "!PLAYER!" %FLAGS% -url:"!VID!" || ECHO. && echo PROBLEM: COULD NOT START PLAYER OR VIDEO && goto BAD
-pause
+IF /I NOT "x!PLAYER:Stereo=!"=="x!PLAYER!" (
+	rem Stereoplayer.exe has the -url: with no space to the URL
+	START /W /I /B "" "!PLAYER!" !PLAYFLAGS!"!VID!" || ECHO. && echo PROBLEM: COULD NOT START PLAYER OR VIDEO && goto BAD
+) ELSE (
+	START /W /I /B "" "!PLAYER!" !PLAYFLAGS! "!VID!" || ECHO. && echo PROBLEM: COULD NOT START PLAYER OR VIDEO && goto BAD
+)
+	pause
 CLS
 ECHO.
-SET VID=""
-SET CHOICE=""
-SET URL=""
-SET INPUT=""
+SET VID=
+SET CHOICE=
+SET URL=
+SET INPUT=
 GOTO YOUTUBE
 
 :BAD
@@ -208,5 +213,3 @@ ECHO.
 ECHO. && echo Something went wrong. Ending the script now.
 ECHO.
 pause
-
-:EOF
