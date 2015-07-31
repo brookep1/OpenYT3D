@@ -12,7 +12,7 @@ This helper batch script can be used to play (streaming) half-SBS formated video
 
 ##Limitations / Known Issues:
 
-- You can't play 1080P or other resolutions that YouTube uses DASH for. The audio and video for DASH are seperate URLs.
+- You can't play 1080P or higher resolutions that YouTube uses DASH for. The audio and video for DASH are seperate URLs for one. The highest resolution that isn't DASH will be 720p. (After playing a video you can see ytformats.txt for the available formats it had. By default it picks the one that YT marks with "best". That is the marker for highest quality non-DASH format.)
 - The stereoplayer.exe spawns a child process that doesn't go away if you close the player window. Use windows task manager to remove lingering stereoplayer.exe processes when you are done watching videos.
 - If there are stereoplayer.exe children still, when you run it again it will complain about the library. You can ignore that.
 
