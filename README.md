@@ -5,13 +5,14 @@ This helper batch script can be used to play (streaming) half-SBS formated video
 
 ##Features:
 
-You give it the video URL or ID and streams directly from Youtube, *you don't have to wait to download it first* then play it. 
+- You give it the video URL or ID and streams directly from Youtube, *you don't have to wait to download it first* then play it. 
+- The video does not have to be tagged in Youtube as a 3D video first. It will accept and play any Half SBS video that is posted.
+- No need for an HTML5 browser. No Flash. And no special plugins necessary. It does not use your browser at all. 
+- Also no fancy .NET libraries or similar. Fancy GUI's are old school. Simple text screens are the future.
 
-The video does not have to be tagged in Youtube as a 3D video first. It will accept and play any Half SBS video that is posted.
-
-No need for an HTML5 browser. No Flash. And no special plugins necessary. It does not use your browser at all. 
-
-Also no fancy .NET libraries or similar. Fancy GUI's are old school. Simple text screens are the future.
+##Limitations:
+- You can't play 1080P or other resolutions that YouTube uses DASH for. The audio and video for DASH are seperate URLs.
+- I'm sure there are more you'll find
 
 ##Requires:
 
@@ -64,7 +65,7 @@ Download Windows .exe: https://yt-dl.org/latest/youtube-dl.exe
 **To get just the playable media URL you can use youtube-dl.exe thusly** - Like if you want to use BINO as a player.
 
 1. Open a command prompt going to the same directory as youtube-dl.exe. *Tip: Shift-right-click gives the option to open an command prompt in the directory where you clicked in file explorer*
-2. Type: youtube-dl.exe -f best -g some.youtube.URL > url.txt
+2. Type: *youtube-dl.exe -f best -g some.youtube.URL > url.txt*
 3. Open url.txt in notepad. That's the media URL. It will likely only work from the machine that you ran the command from. Sometimes you have to run it again to get a different URL because of the URL encode formatting not being liked by your player.
 
 **Got Oculus or other VR?**
