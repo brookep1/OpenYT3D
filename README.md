@@ -57,6 +57,6 @@ First Time:
 2. Do you have youtube-dl.exe in the same directory as this batch file?
 3. Are you pasting in an actual YouTube URL that includes the video ID? Not the URL of a site with an embedded YT video.
 4. Does your player work? Verify your player works with any standard video.
-5. Does it stop after 5 minutes? You have the trial version of 3DTV.AT stereoplayer.exe installed. It selects that over NVidia's player by default. In the params.ini set the path to STEREOPLAYER=none. Now it won't be able to find it and will default to the NVidia player. Verify the path to that player is correct.
+5. Does it stop after 5 minutes? You have the trial version of 3DTV.AT stereoplayer.exe installed and don't have the NVidia player installed. Either license the 3DTV.AT player or install the free NVidia player. There is no difference between the two in regards to what this script needs and does.
 6. Does it show up in anaglyph? You have your NVidia setting on "discovery" for the 3D stereo setup
 7. Something else? Well it's a batch program. A trivial one at that. Take a look inside for yourself and see if it's an easy fix for you.
