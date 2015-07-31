@@ -70,7 +70,10 @@ You can create an alias for the batch file and put it on your desktop or somewhe
 
 ###Other Notes:
 
-**To get just the playable media URL you can use youtube-dl.exe thusly** - Like if you want to use BINO as a player.
+**To get just the playable media URL you can "dry" run**
+- When it asks for the URL type "dry"
+- In the directory there will be a playurl.txt with that media URL
+** Or use youtube-dl.exe directly**
 
 1. Open a command prompt going to the same directory as youtube-dl.exe. *Tip: Shift-right-click gives the option to open an command prompt in the directory where you clicked in file explorer*
 2. Type: *youtube-dl.exe -f best -g some.youtube.URL > url.txt*
