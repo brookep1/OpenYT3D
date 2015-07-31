@@ -1,11 +1,11 @@
 #Open Youtube in 3DVision Stereo Video Player
 https://github.com/brookep1/OpenYT3D
 
-This helper batch script can be used to play half-SBS formated videos from Youtube, VIMEO, and a few other sites on the standard NVidia 3DVision Player in one step. Paste the standard URL and the script will pop-open the Player and play the URL. Simple as that.
+This helper batch script can be used to play (streaming) half-SBS formated videos from Youtube, VIMEO, and a few other sites on the standard NVidia 3DVision Player in one step. Paste the standard URL and the script will pop-open the Player and play the URL. Simple as that.
 
 ##Features:
 
-You give it the video URL or ID and streams directly from Youtube, you don't have to wait to download it first then play it. 
+You give it the video URL or ID and streams directly from Youtube, *you don't have to wait to download it first* then play it. 
 
 The video does not have to be tagged in Youtube as a 3D video first. It will accept and play any Half SBS video that is posted.
 
