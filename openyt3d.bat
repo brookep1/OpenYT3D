@@ -81,32 +81,31 @@ echo see the README for more information
 pause
 GOTO:EOF
 
+ECHO OpenYT3D Version: %VER%
+echo Auto updating youtube-dl extractors
+youtube-dl -U
+
 :YOUTUBE
 rem CLS
 IF NOT "%1"=="" (
 	SET INPUT=%1
 ) ELSE (
-	ECHO -------------------------------------------------------------
-	echo COPY The YouTube URL without any trailing items after the ID
-	echo or COPY just the 11 character ID
-	ECHO --------------------------------------------------------------
+	echo.
+	echo ------  Command Prompt Options: -----------------
 	echo --
-	echo -- YouTube Example by NVidia: 
-	echo --   FpSR2xUc-CI or the full url https://www.youtube.com/watch?v=FpSR2xUc-CI
-	ECHO --------------------------------------------------------------
-	echo --
-	echo -- Commands:
+	echo -- Type/Paste the YouTube URL or ID 
 	echo -- Type "dry" to show the video URL
-	echo -- Type "other" for other youtube-dl supported site URLs
-	echo -- 
-	echo -- Refer to youtube-dl docs for full list of supported sites.
-	echo -- Not all youtube-dl supported sites will work with this script.
-	echo -- And the correct compatible URL might not be obvious or the one on the URL bar
+	echo -- Type "other" for any other supported site URLs
+	echo -- Type "test", "test2", or "test3" to use test URLs
+	echo -- Type "examples" to show the example test URL info
+	echo -- Type "exit" when done watching videos
 	echo --
-	echo --  VIMEO Example has a "link" that is often diffferent from URL bar you currently have
-	echo --   THIS WORKS: https://vimeo.com/116929521
-	echo --   THIS DOES NOT https://vimeo.com/groups/168408/videos/116929521
-	echo --    video by Ganja Clause used without prior permission
+	echo -- Note: 
+	echo -- If the player gives a format error, try again. 
+	echo    It's usually just a glitch.
+	echo -- If you get "library error" click OK. There are zombies
+	echo    Use Task Manager to end the leftover stereo.exe procs	
+	echo --
 	ECHO --------------------------------------------------------------
 	echo.
 	
@@ -115,30 +114,58 @@ IF NOT "%1"=="" (
 	echo.
 	if /I "!INPUT!"=="test" (
 		SET URL=https://www.youtube.com/v/FpSR2xUc-CI
-		SET FMT=-f best
+		SET FORMAT=AUTO
 		echo "Using YouTube test URL with default format"
-		GOTO GET
+		GOTO FORMATS
 	)
 	if /I "!INPUT!"=="test2" (
 		SET URL=https://vimeo.com/116929521
 		SET FMT=
+		echo "Formats only supported for YouTube URLs" > ytformats.txt
 		echo "Using VIMEO test URL"
+		GOTO GET
+	)
+		if /I "!INPUT!"=="test3" (
+		SET URL=http://dai.ly/x2h7385
+		SET FMT=
+		echo "Formats only supported for YouTube URLs" > ytformats.txt
+		echo "Using Daily Motion test URL"
 		GOTO GET
 	)
 	
 	if /I "!INPUT!"=="other" (
 		echo **Warning: If you use a YouTube URL here it will be formatted wrong**
+		echo Refer to youtube-dl docs for full list of supported sites
 		SET /P INPUT="Other Video URL -->  " || ECHO "Invalid Entry" && GOTO ASK
 		SET URL=!INPUT!
+		echo "Formats only supported for YouTube URLs" > ytformats.txt
 		SET FMT=
 		GOTO GET
 	)
 	if /I "!INPUT!"=="dry" (
 		echo Doing a dry run.
 		SET DRY=TRUE
-		SET /P INPUT="Video URL -->  " || ECHO "Invalid Entry" && GOTO ASK
+		GOTO ASK
 	)
-)
+	if /I "!INPUT!"=="examples" (
+		echo -- test: YouTube Example by NVidia: 
+		echo --   FpSR2xUc-CI or the full url https://www.youtube.com/watch?v=FpSR2xUc-CI
+		echo --
+		echo -- test2: VIMEO Example has a "link" that is often diffferent from URL bar
+		echo --   THIS WORKS: https://vimeo.com/116929521
+		echo --   THIS DOES NOT https://vimeo.com/groups/168408/videos/116929521
+		echo --        video by Ganja Clause used without prior permission
+		echo --
+		echo -- test3: Daily Motion Example by Hot Animation - used without permission
+		echo --	  http://dai.ly/x2h7385
+		echo.
+		pause
+		cls
+		GOTO YOUTUBE
+	)
+	if /I "!INPUT!"=="exit" GOTO:EOF
+	if /I "!INPUT!"=="quit" GOTO:EOF
+	)
 
 IF /I NOT "%INPUT:~0,4%"=="http" (
 	SET PREFIX=https://www.youtube.com/v/
@@ -149,6 +176,7 @@ IF /I NOT "%INPUT:~0,4%"=="http" (
 
 :FORMATS
 rem getting available formats that are not DASH
+
 youtube-dl -F !URL! > ytformats.txt || ECHO Does not appear to be a valid youtube URL or ID && GOTO BAD
 
 rem Don't care what those were just make it go
@@ -193,10 +221,15 @@ DEL playurl.txt
 SET /P VID=<playurl.txt 
 
 if /I "!DRY!"=="TRUE" (
+	echo.
 	echo -------- Media URL -------------
+	echo.
 	echo !VID!
+	echo.
 	echo -------- Formats ---------------
+	echo.
 	type ytformats.txt
+	echo.
 	echo ---------------------------------
 	SET VID=
 	SET CHOICE=
@@ -206,6 +239,7 @@ if /I "!DRY!"=="TRUE" (
 	SET INPUT=
 	SET DRY=
 	pause
+	cls
 	GOTO YOUTUBE
 )
 
