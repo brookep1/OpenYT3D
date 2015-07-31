@@ -46,6 +46,11 @@ Download Windows .exe: https://yt-dl.org/latest/youtube-dl.exe
 6. *Paste in the YouTube URL* or other youtube-dl.exe supported URL. In DOS it is Right-Click, Paste. Hit enter.
 7. *Watch Movie*
 
+**Examples:**
+- YouTube Example (by NVidia): FpSR2xUc-CI or the full url https://www.youtube.com/watch?v=FpSR2xUc-CI
+-  VIMEO Example for "other" (by Ganja Clause): https://vimeo.com/groups/168408/videos/116929521
+-- Direct ID entry not supported for other sites. Only YouTube IDs
+
 ###Params Options Include:
 - Ability to skip the Notes (off by default)
 - Ability to show the available YouTube video formats and select one. (defaults to Automatic)

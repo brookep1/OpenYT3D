@@ -27,20 +27,18 @@ IF EXIST params.ini (
 rem Command line parameter definitions override everything
 IF /I NOT "!NOTES!"=="SKIP" (
 	cls
-	echo HELLO TO YOU! 
+	ECHO version: %VER%
 	echo.
-	echo This batch script will help you open a Youtube Video in your 3DVision PLAYER
-	echo You can find the latest version in GitHub here -- https://github.com/brookep1/OpenYT3D
-	echo.
+	echo This batch script will help you open a 
+	echo Youtube Video in your 3DVision PLAYER
+	echo You can find the latest version in GitHub
+	echo https://github.com/brookep1/OpenYT3D
 	echo ---------------
-	echo -- NOTES --    Edit the params.ini to permanently skip this
 	echo ---------------
-	type NOTES.txt
-	echo.
-	echo.
+	echo see notes.txt for interesting stuff
+	echo ---------------
 	echo ---------------
 	echo Press CONTROL-C to discontinue
-	pause 
 	cls
 )
 
@@ -88,53 +86,57 @@ rem CLS
 IF NOT "%1"=="" (
 	SET INPUT=%1
 ) ELSE (
-	ECHO version: %VER%
 	ECHO -------------------------------------------------------------
 	echo COPY The YouTube URL without any trailing items after the ID
-	echo -- or COPY just the 11 character ID
+	echo or COPY just the 11 character ID
 	ECHO --------------------------------------------------------------
-	echo.
+	echo --
+	echo -- YouTube Example by NVidia: 
+	echo --   FpSR2xUc-CI or the full url https://www.youtube.com/watch?v=FpSR2xUc-CI
 	ECHO --------------------------------------------------------------
-	echo -- Example: FpSR2xUc-CI or https://www.youtube.com/watch?v=FpSR2xUc-CI
-	echo -- for YouTube URLs it must end with the video ID
-	echo.
-	echo -- Type "other" for other youtube-dl supported site URLs
-	echo --    VIMEO for example. Refer to youtube-dl docs for full list.
-	echo -- Type "playlist" to pick from your playlist.txt file
+	echo --
+	echo -- Commands:
 	echo -- Type "dry" to show the video URL
-	echo -- Type "exit" to end the script
+	echo -- Type "other" for other youtube-dl supported site URLs
+	echo -- 
+	echo -- Refer to youtube-dl docs for full list of supported sites.
+	echo -- Not all youtube-dl supported sites will work with this script.
+	echo -- And the correct compatible URL might not be obvious or the one on the URL bar
+	echo --
+	echo --  VIMEO Example has a "link" that is often diffferent from URL bar you currently have
+	echo --   THIS WORKS: https://vimeo.com/116929521
+	echo --   THIS DOES NOT https://vimeo.com/groups/168408/videos/116929521
+	echo --    video by Ganja Clause used without prior permission
 	ECHO --------------------------------------------------------------
 	echo.
+	
 	:ASK
-	SET /P INPUT="YouTube URL or ID -->  " || ECHO "Invalid Entry" && GOTO ASK
+	SET /P INPUT="YouTube URL/ID or command -->  " || ECHO "Invalid Entry" && GOTO ASK
 	echo.
 	if /I "!INPUT!"=="test" (
 		SET URL=https://www.youtube.com/v/FpSR2xUc-CI
-		SET FMT="-f best"
-		echo "Using test URL"
+		SET FMT=-f best
+		echo "Using YouTube test URL with default format"
 		GOTO GET
 	)
+	if /I "!INPUT!"=="test2" (
+		SET URL=https://vimeo.com/116929521
+		SET FMT=
+		echo "Using VIMEO test URL"
+		GOTO GET
+	)
+	
 	if /I "!INPUT!"=="other" (
+		echo **Warning: If you use a YouTube URL here it will be formatted wrong**
 		SET /P INPUT="Other Video URL -->  " || ECHO "Invalid Entry" && GOTO ASK
 		SET URL=!INPUT!
-		echo "Other URL type"
+		SET FMT=
 		GOTO GET
 	)
 	if /I "!INPUT!"=="dry" (
 		echo Doing a dry run.
-		IF /I NOT "!INPUT:~0,4!"=="http" (
-			SET PREFIX=https://www.youtube.com/v/
-			SET URL=!PREFIX!!INPUT!
-		)
+		SET DRY=TRUE
 		SET /P INPUT="Video URL -->  " || ECHO "Invalid Entry" && GOTO ASK
-		echo -------- Media URL -------------
-		youtube-dl -g !INPUT!
-		echo -------- Formats ---------------
-		youtube-dl -F !INPUT!
-		echo ---------------------------------
-		SET URL=!INPUT!
-		pause
-		GOTO YOUTUBE
 	)
 )
 
@@ -145,25 +147,28 @@ IF /I NOT "%INPUT:~0,4%"=="http" (
 	SET URL=!INPUT!
 )
 
-rem Don't care just make it go
+:FORMATS
+rem getting available formats that are not DASH
+youtube-dl -F !URL! > ytformats.txt || ECHO Does not appear to be a valid youtube URL or ID && GOTO BAD
+
+rem Don't care what those were just make it go
 IF /I "!FORMAT!"=="AUTO" (
 	SET FMT=-f best	
 	GOTO GET
 )
 
-rem getting available formats that are not DASH
-youtube-dl -F !URL! > ytformats.txt || ECHO Does not appear to be a valid youtube URL or ID && GOTO BAD
 FOR /F %%A IN ('find /v "DASH" ytformats.txt ^| find /c /v "]"') DO set LINES=%%A
 rem There are no formats returned. This is probably not a YouTube URL
-echo Number of Formats: %size%
+echo Number of Formats: %LINES%
 IF !LINES! LSS 1 (
+	FMT= 
 	ECHO No Formats Returned.
 	GOTO GET
-IF !LINES! LSS 2 (
-	SET FMT=
-	ECHO There is only one video resolution available for this video
-	GOTO GET 
-)
+	IF !LINES! LSS 2 (
+		SET FMT= 
+		ECHO There is only one video resolution available for this video
+		GOTO GET 
+	)
 )
 
 CLS
@@ -187,6 +192,23 @@ DEL playurl.txt
 !YTDL! !FMT! -g !URL! > playurl.txt || ECHO. && echo PROBLEM: COULD NOT GET YT VIDEO URL && goto BAD
 SET /P VID=<playurl.txt 
 
+if /I "!DRY!"=="TRUE" (
+	echo -------- Media URL -------------
+	echo !VID!
+	echo -------- Formats ---------------
+	type ytformats.txt
+	echo ---------------------------------
+	SET VID=
+	SET CHOICE=
+	SET URL=
+	SET FMT=
+	SET LINES=
+	SET INPUT=
+	SET DRY=
+	pause
+	GOTO YOUTUBE
+)
+
 :Play
 
 ECHO.
@@ -205,7 +227,10 @@ ECHO ********Ready for Another Video?************
 SET VID=
 SET CHOICE=
 SET URL=
+SET FMT=
+SET LINES=
 SET INPUT=
+SET DRY=
 GOTO YOUTUBE
 
 :BAD
