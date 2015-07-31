@@ -88,7 +88,7 @@ You can create an alias for the batch file and put it on your desktop or somewhe
 1. Open a command prompt going to the same directory as youtube-dl.exe. 
     *Tip: Shift-right-click gives the option to open an command prompt in the directory where you clicked in file explorer*
 2. Type: **youtube-dl.exe -f best -g some.youtube.URL > url.txt**
-3. Open url.txt in notepad. That's the media URL. It will likely only work from the machine that you ran the command from. Sometimes you have to run it again to get a different URL because of the URL encode formatting not being liked by your player.
+3. Open url.txt in notepad. That's the media URL. 
 
 **Got Oculus or other VR?**
 
