@@ -10,9 +10,11 @@ This helper batch script can be used to play (streaming) half-SBS formated video
 - No need for an HTML5 browser. No Flash. And no special plugins necessary. It does not use your browser at all. 
 - Also no fancy .NET libraries or similar. Fancy GUI's are old school. Simple text screens are the future.
 
-##Limitations:
+##Limitations / Known Issues:
+
 - You can't play 1080P or other resolutions that YouTube uses DASH for. The audio and video for DASH are seperate URLs.
-- I'm sure there are more you'll find
+- The stereoplayer.exe spawns a child process that doesn't go away if you close the player window. Use windows task manager to remove lingering stereoplayer.exe processes when you are done watching videos.
+- If there are stereoplayer.exe children still, when you run it again it will complain about the library. You can ignore that.
 
 ##Requires:
 
@@ -38,13 +40,18 @@ Download Windows .exe: https://yt-dl.org/latest/youtube-dl.exe
 
 ###Usage:
 
-1. *Download youtube-dl.exe* - See above
+1. *Download latest* stable zip file
+2. *Unzip it so somewhere* - There is no installer
+2. *Download youtube-dl.exe* - See above
 2. *Place youtube-dl.exe in the same directory as Openyt3d.bat*
 3. *Check params.ini* - You might need to specify the location of your player if it's not in the default install 
 4. *Run the batch file* - openyt3d.bat. A simple DOS window will pop open.
 5. *Read the Notes*
 6. *Paste in the YouTube URL* or other youtube-dl.exe supported URL. In DOS it is Right-Click, Paste. Hit enter.
 7. *Watch Movie*
+8. *Command window stays open* - you can put in another URL to play
+
+You can create an alias for the batch file and put it on your desktop or somewhere.
 
 ###Params Options Include:
 - Ability to skip the Notes (off by default)
