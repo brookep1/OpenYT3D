@@ -1,7 +1,7 @@
 #Open Youtube in 3DVision Stereo Video Player
 https://github.com/brookep1/OpenYT3D
 
-This helper batch script can be used to play 3D Youtube videos on the standard NVidia 3DVision Player
+This helper batch script can be used to play half-SBS formated videos from Youtube, VIMEO, and a few other sites on the standard NVidia 3DVision Player in one step. Paste the standard URL and the script will pop-open the Player and play the URL. Simple as that.
 
 ##Features:
 
@@ -34,4 +34,29 @@ https://github.com/rg3/youtube-dl
 Download Windows .exe: https://yt-dl.org/latest/youtube-dl.exe
 
 **The youtube-dl.exe tool can do more than just YouTube**. Check out it's notes for other sites it can retrieve fun.
-Currently this batch script only supports pulling 3D videos from YT. Thanks all who work on this tool.
+
+###Usage:
+
+First Time:
+
+1. *Download youtube-dl.exe* - See above
+2. *Place youtube-dl.exe in the same directory as Openyt3d.bat*
+3. *Check params.ini* - You might need to specify the location of your player if it's not in the default install 
+4. *Run the batch file* - openyt3d.bat. A simple DOS window will pop open.
+5. *Read the Notes*
+6. *Paste in the YouTube URL* or other youtube-dl.exe supported URL. In DOS it is Right-Click, Paste. Hit enter.
+7. *Watch Movie*
+
+###Params Options Include:
+- Ability to skip the Notes (off by default)
+- Ability to show the available YouTube video formats and select one. (defaults to Automatic)
+- Maybe other stuff ... check the file for details
+
+###Likely Problems:
+1. Can it find your player? If not set the full path in the params.ini. Include the trailing slash
+2. Do you have youtube-dl.exe in the same directory as this batch file?
+3. Are you pasting in an actual YouTube URL that includes the video ID? Not the URL of a site with an embedded YT video.
+4. Does your player work? Verify your player works with any standard video.
+5. Does it stop after 5 minutes? You have the trial version of 3DTV.AT stereoplayer.exe installed. It selects that over NVidia's player by default. In the params.ini set the path to STEREOPLAYER=none. Now it won't be able to find it and will default to the NVidia player. Verify the path to that player is correct.
+6. Does it show up in anaglyph? You have your NVidia setting on "discovery" for the 3D stereo setup
+7. Something else? Well it's a batch program. A trivial one at that. Take a look inside for yourself and see if it's an easy fix for you.
