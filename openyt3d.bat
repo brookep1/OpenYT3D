@@ -199,9 +199,9 @@ IF /I NOT "x!PLAYER:Stereo=!"=="x!PLAYER!" (
 ) ELSE (
 	START /W /I /B "" "!PLAYER!" !PLAYFLAGS! "!VID!" || ECHO. && echo PROBLEM: COULD NOT START PLAYER OR VIDEO && goto BAD
 )
-	pause
+
 CLS
-ECHO.
+ECHO ********Ready for Another Video?************
 SET VID=
 SET CHOICE=
 SET URL=
