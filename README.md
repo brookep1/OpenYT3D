@@ -82,7 +82,7 @@ Look for VRPLAYER. It suports YouTube URLS directly via VLC integration.
 
 #COPYRIGHT#
 
-The author(s) has released this software and documentation into the Public Domain. You may use it, modify it, redistribute it, etc for any project and any purpose without restriction. Attribution would be a nice courtesy but not specifically required.
+The author(s) has released this software and documentation into the Public Domain. You may use it, modify it, redistribute it, etc for any project and any purpose without restriction. Some credit would be a nice courtesy but not specifically required.
 
 See the copyrights for the pre-requisite components for any restrictions on their usage and distribution.
 
